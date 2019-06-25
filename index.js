@@ -28,7 +28,7 @@ const mergeDiary = async event => {
   const user = res.user;
 
   // 人によってはdisplay_nameを設定していないのでその場合はreal_nameとする
-  const username = user.profile.display_name ? user.display_name : user.profile.real_name;
+  const username = user.profile.display_name ? user.profile.display_name : user.profile.real_name;
   const icon_url = user.profile.image_48;
 
   await web.chat.postMessage({
