@@ -45,9 +45,20 @@ const mergeDiary = async event => {
 // このBotが参加しているチャンネルの全メッセージイベントを受け取る
 rtm.on('message', event => {
   console.log(event);
-  if (event.channel !== 'CKX9TB2DC') {
-    mergeDiary(event);
-  }
+
+  (async () => {
+    const res = await web.channels.info({
+      channel: event.channel,
+    });
+
+    const channel = res.channel;
+
+    // times_で始まるチャンネルでの発言をmergeDiaryへ投げる
+    const times_regex = /^times_(?!all)/;
+    if (channel.name.match(times_regex)) {
+      mergeDiary(event);
+    }
+  })();
 });
 
 (async () => {
