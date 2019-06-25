@@ -38,6 +38,7 @@ const mergeDiary = async event => {
     text: event.text,
     username,
     icon_url,
+    unfurl_links: true,
   });
 };
 
