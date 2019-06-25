@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/s10akir/cocktail_bot#readme",
   "dependencies": {
+    "@slack/rtm-api": "^5.0.1",
+    "@slack/web-api": "^5.0.1",
     "dotenv": "^8.0.0"
   }
 }
