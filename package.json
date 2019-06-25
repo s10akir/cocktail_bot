@@ -1,0 +1,20 @@
+{
+  "name": "cocktail_bot",
+  "version": "1.0.0",
+  "description": "cocktailプロジェクト用のslack bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s10akir/cocktail_bot.git"
+  },
+  "keywords": [],
+  "author": "Akira Shinohara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s10akir/cocktail_bot/issues"
+  },
+  "homepage": "https://github.com/s10akir/cocktail_bot#readme"
+}
