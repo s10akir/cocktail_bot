@@ -82,4 +82,4 @@ function createAttachments(username,permalink,message){
       "text": message
     }
  ]
-}
+};
