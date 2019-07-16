@@ -1,4 +1,4 @@
-'use strict'; 
+'use strict';
 
 
 require('dotenv').config();
@@ -31,13 +31,31 @@ const mergeDiary = async event => {
   const username = user.profile.display_name ? user.profile.display_name : user.profile.real_name;
   const icon_url = user.profile.image_48;
 
+ //チャットへのリンクを取得
+  const relink = await web.chat.getPermalink({
+    channel: event.channel,
+    message_ts: event.ts
+  });
+  const permalink = relink.permalink;
+
+  const text = event.text;
+
+  const attachments = (username,permalink,text) => {
+    return [
+      {
+        "pretext": '<${permalink}|${username}さんのチャンネルへ飛ぶ！>',
+        "text": text,
+      }
+   ]
+  };
+
   await web.chat.postMessage({
     channel: 'times_all',
     // TODO: event.textだけでは情報が足りないのでそのうちなんとかする
     // e.g. 画像やスタンプなど
-    text: event.text,
     username,
     icon_url,
+    attachments,
     unfurl_links: true,
   });
 };
@@ -56,9 +74,9 @@ rtm.on('message', event => {
 
     // times_で始まるチャンネルでの発言をmergeDiaryへ投げる
     const times_regex = /^times_(?!all)/;
-    if (channel.name.match(times_regex)) {
-      mergeDiary(event);
-    }
+     if (channel.name.match(times_regex)) {
+       mergeDiary(event);
+     }
   })();
 });
 
