@@ -33,12 +33,21 @@ const mergeDiary = async event => {
 
  //チャットへのリンクを取得
   const relink = await web.chat.getPermalink({
-    channel : event.channel,
-    message_ts : event.ts
+    channel: event.channel,
+    message_ts: event.ts
   });
   const permalink = relink.permalink;
 
-  const attachments = createAttachments(username,permalink,event.text);
+  const text = event.text;
+
+  const attachments = (username,permalink,text) => {
+    return [
+      {
+        "pretext": '<${permalink}|${username}さんのチャンネルへ飛ぶ！>',
+        "text": text,
+      }
+   ]
+  };
 
   await web.chat.postMessage({
     channel: 'times_all',
@@ -47,7 +56,7 @@ const mergeDiary = async event => {
     username,
     icon_url,
     attachments,
-    unfurl_links: true
+    unfurl_links: true,
   });
 };
 
@@ -74,12 +83,3 @@ rtm.on('message', event => {
 (async () => {
   await rtm.start();
 })();
-
-function createAttachments(username,permalink,message){
-  return [
-    {
-      "pretext": "<" + permalink + "|" + username + "さんのチャンネルへ飛ぶ！>",
-      "text": message
-    }
- ]
-};
